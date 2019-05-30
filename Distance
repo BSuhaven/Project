@@ -8,14 +8,6 @@ void setup() {
 
 void loop() {
     uint32_t duration, cm;
-    static bool init = false;
-    if (!init) {
-        pinMode(D2, OUTPUT);
-        digitalWriteFast(D2, LOW);
-        pinMode(D6, INPUT);
-        delay(50);
-        init = true;
-    }
 
     digitalWriteFast(D2, HIGH);
     delayMicroseconds(10);
