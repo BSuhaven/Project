@@ -1,0 +1,46 @@
+#include "application.h"
+
+
+
+void setup() {
+    Serial.begin(115200);
+}
+
+void loop() {
+        uint32_t duration, cm;
+    static bool init = false;
+    if (!init) {
+        pinMode(D2, OUTPUT);
+        digitalWriteFast(D2, LOW);
+        pinMode(D6, INPUT);
+        delay(50);
+        init = true;
+    }
+
+    digitalWriteFast(D2, HIGH);
+    delayMicroseconds(10);
+    digitalWriteFast(D2, LOW);
+  
+    duration = pulseIn(D6, HIGH);
+    
+    cm = duration / 29 / 2;
+    
+        if(cm > 30 & cm < 50)
+    {
+        digitalWrite(D5, HIGH);
+        digitalWrite(D4, HIGH);
+        delay(7000);
+        digitalWrite(D5, LOW);
+        digitalWrite(D4, LOW);
+        delay(7000);
+    }
+    if (cm < 31)
+    {
+        digitalWrite(D3, HIGH);
+        digitalWrite(D1, HIGH);
+        delay(7000);
+        digitalWrite(D3, LOW);
+        digitalWrite(D1, LOW);
+        delay(7000);
+    }
+}
