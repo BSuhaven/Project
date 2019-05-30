@@ -1,0 +1,50 @@
+#include "application.h"
+
+
+
+void setup() {
+    Serial.begin(115200);
+}
+
+void loop() {
+    ping(D2, D6, 20, true);
+}
+
+void ping(pin_t trig_pin, pin_t echo_pin, uint32_t wait, bool info)
+{
+    uint32_t duration, inches, cm;
+    static bool init = false;
+    if (!init) {
+        pinMode(trig_pin, OUTPUT);
+        digitalWriteFast(trig_pin, LOW);
+        pinMode(echo_pin, INPUT);
+        delay(50);
+        init = true;
+    }
+
+    digitalWriteFast(trig_pin, HIGH);
+    delayMicroseconds(10);
+    digitalWriteFast(trig_pin, LOW);
+  
+    duration = pulseIn(echo_pin, HIGH);
+    
+    cm = duration / 29 / 2;
+    if(cm > 30 & cm < 50)
+    {
+        digitalWrite(D5, HIGH);
+        digitalWrite(D4, HIGH);
+        delay(7000);
+        digitalWrite(D5, LOW);
+        digitalWrite(D4, LOW);
+        delay(7000);
+    }
+    if (cm < 31)
+    {
+        digitalWrite(D3, HIGH);
+        digitalWrite(D1, HIGH);
+        delay(7000);
+        digitalWrite(D3, LOW);
+        digitalWrite(D1, LOW);
+        delay(7000);
+    }
+}
