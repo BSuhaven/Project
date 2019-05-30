@@ -7,7 +7,7 @@ void setup() {
 }
 
 void loop() {
-        uint32_t duration, cm;
+    uint32_t duration, cm;
     static bool init = false;
     if (!init) {
         pinMode(D2, OUTPUT);
